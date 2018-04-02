@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+import webpack from 'webpack';
+
+import app from '../app';
+import webpackConfig from '../../webpack.config.dev';
+
+const debug = require('debug')('_example:server');
+
+const compiler = webpack(webpackConfig);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: webpackConfig.output.publicPath
+}));
+
+// Initialize the app.
+let server;
+const port = 8080;
+const startServer = () => {
+  server = app.listen(port, (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("App now running on port", port);
+    }
+  });
+};
+
+startServer();
