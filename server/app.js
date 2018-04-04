@@ -3,6 +3,7 @@
 
 // init project
 import express from 'express';
+import path from 'path';
 const app = express();
 
 // we've started you off with Express, 
@@ -14,9 +15,8 @@ app.use(express.static('public'))
 // http://expressjs.com/en/starter/basic-routing.html
 const routes = ["/", "/login", "/register"];
 
-routes.forEach(route => app.get(route, (request, response) => {
-  response.sendFile('/app/client/views/index.html')
-}));
+routes.forEach(route => app.get(route, (request, response) => 
+  response.sendFile(path.resolve(__dirname + '/../client/views/index.html'))));
 
 // // Simple in-memory store
 // const dreams = [
